@@ -49,14 +49,16 @@ class Lista(Grafo):
     def imprimeGrafo(self, vertices):
         print("Grafo em forma de lista:")
         for i in range(len(vertices)):
-            print()
             s, a, p = self.verticeDiscover(vertices, vertices[i])
+            print(f"Vertice {vertices[i].upper()}", end=" -> ")
             for j in range(len(s)):
-                print(f"{vertices[i].upper()} -> {s[j].upper()} ({p[j]})", end="; ")
+                print(f"{s[j].upper()} ({p[j]})", end=" -> ")
+            print()
 
     # METODO PARA PRINTAR O SUMARIO #
     def sumario(self, vertices):
         v, a = len(vertices), len(self.lista)
+        print('************************************')
         print(f"Numero de arestas do grafo: {a}")
         print(f"Numero de vertices do grafo: {v}")
         densidade = a / (v * (v - 1))
@@ -70,20 +72,26 @@ class Lista(Grafo):
 # EXEMPLO DE UM ARQUIVO FUNCIONAL PARA ESTE CODIGO: 1 A B 2
 #                                                   2 B C 3
 def lerGrafo(arq):
-    arquivo = open(arq, 'r')
-    text = arquivo.readlines()
-    grafo = [i.split('\n', 1)[0] for i in text]
-    return grafo
+    try:
+        arquivo = open(arq, 'r')
+        text = arquivo.readlines()
+        grafo = [i.split('\n', 1)[0] for i in text]
+        return grafo
+    except:
+        input("Erro ao abrir o arquivo, certifique-se de que o programa se encontra no mesmo diretorio do arquivo, "
+              "e que o nome do mesmo seja grafo.")
 
 
 # MENU BASE DO PROGRAMA #
 def menu():
-    x = int(input("1 - Sumario\n"
+    x = int(input("************************************\n"
+                  "1 - Sumario\n"
                   "2 - Grau de Vertice\n"
                   "3 - Sucessores de algum Vertice\n"
                   "4 - Antecessores de algum Vertice\n"
                   "5 - Exibir grafo em forma de lista\n"
-                  "6 - Terminar o aplicativo\n"))
+                  "6 - Terminar o aplicativo\n"
+                  "************************************\n"))
     return x
 
 
@@ -106,19 +114,27 @@ if __name__ == '__main__':
         if escolha == 1:
             grafo.sumario(vertices)
         if escolha == 2:
-            v = input("Insira o vertice: ")
+            print('************************************')
+            v = input("Insira o vertice:"
+                      "\n************************************")
             suc, ant, p = grafo.verticeDiscover(vertices, v)
             print(
-                f"Grau do vertice {v.upper()}: {len(suc) + len(ant)}, sendo {len(suc)} sucessores {suc} e {len(ant)} antecessores {ant}")
+                f"Grau do vertice {v.upper()}: {len(suc) + len(ant)}, sendo {len(suc)} sucessores {suc} e {len(ant)} "
+                f"antecessores {ant}")
         if escolha == 3:
-            v = input("Insira o vertice: ")
+            print('************************************')
+            v = input("Insira o vertice:"
+                      "\n************************************")
             suc, ant, p = grafo.verticeDiscover(vertices, v)
             print(f"Sucessores de {v.upper()}: {suc}")
         if escolha == 4:
-            v = input("Insira o vertice: ")
+            print('************************************')
+            v = input("Insira o vertice:"
+                      "\n************************************")
             suc, ant, p = grafo.verticeDiscover(vertices, v)
             print(f"Antecessores de {v.upper()}: {ant}")
         if escolha == 5:
+            print('************************************')
             grafo.imprimeGrafo(vertices)
         if escolha == 6:
             break
